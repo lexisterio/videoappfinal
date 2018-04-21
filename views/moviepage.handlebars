@@ -1,0 +1,31 @@
+<section id="video">
+  <!-- back button here -->
+  <a href="/" class="back-button">
+    <i class="far fa-arrow-alt-circle-left"></i>
+  </a>
+
+  <movie-info v-bind:movie="movie">
+  </movie-info>
+  
+  <!-- reviews go here -->
+  <article class="comments" v-if="reviews.length > 0">
+    <div v-for="review in reviews">
+      <!-- temporary vue component -->
+        <review-stars :value="review.comments_rating" :disabled="true"></review-stars>
+      <!-- end component -->
+      <i class="post-date">${ review.comments_date }</i>
+      <p>
+        ${ review.comments_copy }
+      </p>
+    </div>
+  </article>
+    
+  <!-- aside => add our own reviews -->
+  <aside class="add-comment" :class="{ floatRight : reviews.length > 0 }">
+    <h4 class="review-heading">Add a Review</h4>
+    <span class="hidden movId">{{ movie }}</span>
+    <review-stars v-model="numStars" :disabled="false"></review-stars>
+    <textarea name="review" id="review" placeholder="What did you think?" v-model="review"></textarea>
+    <input type="submit" value="Submit your review!" v-on:click="addReview">
+  </aside>
+</section>
